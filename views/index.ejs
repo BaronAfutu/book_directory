@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <title>Books Library</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width">        
+  <link rel="stylesheet" href="/stylesheets/vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/vendor/font-awesome.min.css">
+<!-- 
+Dashboard Template 
+http://www.templatemo.com/preview/templatemo_415_dashboard
+-->
+</head>
+<body>
+
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="" class="img-fluid"> Books Library</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item <%= divName==''?'active':'' %>">
+          <a class="nav-link" href="/">All Books <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/recent">Last 7 Days</a>
+        </li>
+        <li class="nav-item <%= divName=='authors'?'active':'' %>">
+          <a class="nav-link" href="/authors/0">Authors</a>
+        </li>
+        <li class="nav-item <%= divName=='publishers'?'active':'' %>">
+          <a class="nav-link" href="/publishers/0">Publishers</a>
+        </li>
+        <li class="nav-item <%= divName=='Genres'?'active':'' %>">
+          <a class="nav-link" href="/genres/0">Genres</a>
+        </li>
+        <li class="nav-item <%= divName=='years'?'active':'' %>">
+          <a class="nav-link" href="/years/0">Publish Years</a>
+        </li>
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li> -->
+      </ul>
+      <form method="GET" action="/search" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" name="searchVal"
+        placeholder="Search title or author..." aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <!--Main Container-->
+  <div class="container shadow">
+    <div class="row my-3">
+      <div class="col-3 h-25 overflow-auto">
+        <table class="table table-striped table-bordered my-2">
+          <thead class="bg-dark text-light">
+            <tr><td class="text-capitalize"><%= divName!=''?divName:'' %></td></tr> 
+          </thead>
+          <tbody>
+            <% for(let i=0,n=divs.length;i<n;i++){ %>
+              <tr><td class="py-1"><a href="<%= `/${divName}/${i}` %>"><%= divs[i] %></a></td></tr>
+                
+            <% } %>
+            <% if(divName==''){ %>
+              <tr><td class="p-0 text-center text-secondary font-italic">N/A</td></tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-9">
+        <div class="row row-cols-md-2 row-cols-lg-4">
+          
+          <% for(let book of books){ %>
+          <div class="col">
+            <div class="card my-2 h-75">
+              <img class="card-img-top img-fluid p-1" style="height: 65%!important;" src="<%= book.cover_image %>" alt="Card image cap" onerror="this.onerror=null;this.src='/images/covers/noCover.gif'">
+              <div class="card-body">
+                <p class="card-text text-center"><%= book.title %></p>
+              </div>
+              <div class="card-footer text-center">
+                <i class="text-secondary"><%= book.author %></i>
+              </div>
+            </div>
+          </div>
+          <% } %>
+
+
+        </div>
+        
+
+      </div>
+    </div>
+  </div>
+  <!--End of Main Container-->
+
+
+
+
+
+
+
+    <script src="/javascripts/vendor/jquery.min.js"></script>
+    <script src="/javascripts/vendor/bootstrap.min.js"></script>
+    <script src="/javascripts/vendor/templatemo_script.js"></script>
+    <script type="text/javascript">
+    // Line chart
+    
+    window.onload = function(){
+      
+    };
+
+    $('#myTab a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+
+    $('#loading-example-btn').click(function () {
+      var btn = $(this);
+      btn.button('loading');
+      // $.ajax(...).always(function () {
+      //   btn.button('reset');
+      // });
+  });
+  </script>
+</body>
+</html>
